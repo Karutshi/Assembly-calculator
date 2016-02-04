@@ -16,7 +16,7 @@
 section .data
     maxNumbers         equ 10                       ; Max amount of numbers
     maxOperands        equ maxNumbers - 1           ; Max amount of operands
-    asciiLeftPar       equ 40                   ; ASCII codes for the usable signs
+    asciiLeftPar       equ 40                       ; ASCII codes for the usable signs
     asciiRightPar      equ 41
     asciiMul           equ 42   
     asciiAdd           equ 43
@@ -25,7 +25,7 @@ section .data
     asciiPowerTo       equ 94
 
 
-    ignored            equ 0                    ; Codes for the different operations
+    ignored            equ 0                        ; Codes for the different operations
     leftpar            equ 1                    
     rightPar           equ 2
     powerTo            equ 3
@@ -35,44 +35,46 @@ section .data
     subtraction        equ 7
 
 
-    entryString db 'Calculator v1.0', 0Ah, 'This version supports:', 0Ah, 'Addition', 0Ah, 'Subtraction', 0Ah, 'Multiplication', 0Ah, 'Division', 0Ah, 0Ah
-    entryStringLen equ $-entryString
+    entryString                     db 'Calculator v1.0', 0Ah, 'This version supports:', 0Ah, 'Addition', 0Ah, 'Subtraction', 0Ah, 'Multiplication', 0Ah, 'Division', 0Ah, 0Ah
+    entryStringLen                  equ $-entryString
 
-    ansString db 'Ans'
-    ansStringLen equ $-ansString
+    ansString                       db 'Ans'
+    ansStringLen                    equ $-ansString
 
-    operandErrorString db 'Error:', 0Ah, 'Found unexpected character in input: ', 027h, 0h, 027h, 0Ah
-    operandErrorStringLen equ $-operandErrorString
+    operandErrorString              db 'Error:', 0Ah, 'Found unexpected character in input: ', 027h, 0h, 027h, 0Ah
+    operandErrorStringLen           equ $-operandErrorString
 
-    tooManyOperandsErrorString db 'Error:', 0Ah, 'Too many operands in the calculation. Maximum number is: ', maxOperands + 48, 0Ah  
-    tooManyOperandsErrorStringLen equ $-tooManyOperandsErrorString
+    tooManyOperandsErrorString      db 'Error:', 0Ah, 'Too many operands in the calculation. Maximum number is: ', maxOperands + 48, 0Ah  
+    tooManyOperandsErrorStringLen   equ $-tooManyOperandsErrorString
 
-    overflowErrorString db 'Error:', 0Ah, 'Overflow', 0Ah  
-    overflowErrorStringLen equ $-overflowErrorString
+    overflowErrorString             db 'Error:', 0Ah, 'Overflow', 0Ah  
+    overflowErrorStringLen          equ $-overflowErrorString
 
-    divideByZeroErrorString db 'Error:', 0Ah, 'Division by zero', 0Ah
-    divideByZeroErrorStringLen equ $-divideByZeroErrorString
+    divideByZeroErrorString         db 'Error:', 0Ah, 'Division by zero', 0Ah
+    divideByZeroErrorStringLen      equ $-divideByZeroErrorString
 
-    zeroToPowerZeroErrorString db 'Error:', 0ah, '0^0 is undefined', 0Ah
-    zeroToPowerZeroErrorStringLen equ $-zeroToPowerZeroErrorString
+    zeroToPowerZeroErrorString      db 'Error:', 0ah, '0^0 is undefined', 0Ah
+    zeroToPowerZeroErrorStringLen   equ $-zeroToPowerZeroErrorString
 
-    returnString db 'Result: '
-    returnStringLen equ $-returnString
+    returnString                    db 'Result: '
+    returnStringLen                 equ $-returnString
+
+
 
     negativeSign db ' '
 
     lastResult dd 0
 
 section .bss
-    numbers resd maxNumbers
-    operations resb maxOperands
-    resultNumberASCII resb 11
-    resultNumberASCIILen equ $-resultNumberASCII
-    leftpar resb 1
-    rightpar resb 1
+    numbers                 resd maxNumbers
+    operations              resb maxOperands
+    resultNumberASCII       resb 11
+    resultNumberASCIILen    equ $-resultNumberASCII
+    leftpar                 resb 1
+    rightpar                resb 1
 
-    input times 15 resb maxNumbers
-    inputLen equ $-input
+    input times 15          resb maxNumbers
+    inputLen                equ $-input
 
 
 
@@ -184,7 +186,7 @@ SpacesRemoved:
 
 
 CheckIfQuit:
-    cmp byte [input], 71h
+    cmp byte [input], 71h               ;Checks if the user has written 'quit' or 'q' to quit the application.
     jne NoQuit
     cmp byte [input + 1], 0Ah
     je Quit
